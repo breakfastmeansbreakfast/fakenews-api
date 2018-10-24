@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const adduser = require('./controllers/Adduser');
 
 require('dotenv').config({
   path: path.join(__dirname, './settings.env'),
@@ -9,8 +10,8 @@ require('dotenv').config({
 
 const app = express();
 mongoose.connect(process.env.DATABASE_CONN, { useNewUrlParser: true });
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.get('/', (req, res) => res.send('Hello MongoDb!'));
+app.post('/adduser', adduser.post);
 
 app.listen(3000, () => console.log('It works!'));
-
